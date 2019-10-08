@@ -55,16 +55,6 @@ Route::get('schema/addColumn', function(){
 	});
 });
 
-
-Route::get('schema/create/count', function(){
-	Schema::create('count', function($table){
-		$table -> increments('id');
-		$table -> string('name') -> unique();
-		$table -> timestamps();
-		$table -> text('desc') -> nullable();
-	});
-});
-
 Route::get('schema/create/lesson', function(){
 	Schema::create('lesson', function($table){
 		$table -> increments('id');
