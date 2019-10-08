@@ -41,3 +41,40 @@ Route::get('scheme/change_attribute', function(){
 Route::get('scheme/deleteUser', function(){
 	Schema::dropIfExists("User");	
 });
+
+
+Route::get('schema/drop_column', function(){
+	Schema::table("temp", function($table){
+		$table -> dropColumn("name");
+	});
+});
+
+Route::get('schema/addColumn', function(){
+	Schema::table("temp", function($table){
+		$table -> string("nameTemp");
+	});
+});
+
+
+Route::get('schema/create/count', function(){
+	Schema::create('count', function($table){
+		$table -> increments('id');
+		$table -> string('name') -> unique();
+		$table -> timestamps();
+		$table -> text('desc') -> nullable();
+	});
+});
+
+Route::get('schema/create/lesson', function(){
+	Schema::create('lesson', function($table){
+		$table -> increments('id');
+		$table -> string('name') -> unique();
+		$table -> timestamps();
+		$table -> text('desc') -> nullable();
+		$table -> integer('count_id') -> unsigned();
+		$table -> foreign('count_id') -> references('id') -> on('count') -> onDelete('cascade');
+	});
+});
+
+
+
