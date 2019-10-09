@@ -55,16 +55,46 @@ Route::get('schema/addColumn', function(){
 	});
 });
 
-Route::get('schema/create/lesson', function(){
-	Schema::create('lesson', function($table){
-		$table -> increments('id');
-		$table -> string('name') -> unique();
-		$table -> timestamps();
-		$table -> text('desc') -> nullable();
-		$table -> integer('count_id') -> unsigned();
-		$table -> foreign('count_id') -> references('id') -> on('count') -> onDelete('cascade');
+// Route::get('schema/create/lesson', function(){
+// 	Schema::create('lesson', function($table){
+// 		$table -> increments('id');
+// 		$table -> string('name') -> unique();
+// 		$table -> timestamps();
+// 		$table -> text('desc') -> nullable();
+// 		$table -> integer('count_id') -> unsigned();
+// 		$table -> foreign('count_id') -> references('id') -> on('count') -> onDelete('cascade');
+// 	});
+// });
+//select
+Route::get('query/counts', function(){
+	$data = DB::table('counts') -> where('id',5) -> orWhere('id', 1) -> get();
+	echo "<pre>";
+	print_r($data);
+	echo "</pre>";
+});
+//ofset limit
+// Route::get('query/counts_index', function(){
+// 	$data = DB::table('counts') -> where('id','>',5) -> take(4) -> skip(1) -> get();
+// 	echo "<pre>";
+// 	print_r($data);
+// 	echo "</pre>";
+// });
+//between
+
+Route::get('search/profile', function(){
+	return 'profile';
+})->name('profile');
+
+Route::prefix('auth')->group(function(){
+	Route::get('user',function(){
+		print('user');
 	});
 });
 
+
+Route::prefix('counts') -> group(function(){
+	Route::get('temp/{offset}','Count\CountController@getCount');
+	Route::get('{id}','Count\CountController@show');
+});
 
 

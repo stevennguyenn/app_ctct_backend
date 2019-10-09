@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         $this -> call(CountsTableSeeder::class);
+        $this -> call(UsersTableSeeder::class);
     }
 }
 
@@ -41,5 +42,29 @@ class CountsTableSeeder extends Seeder
         	array('name' => 'Vật lý 14', 'desc' => 'Bài giảng vật lý 14', 'author' => 'Lê Hoài Name'),
         	array('name' => 'Vật lý 15', 'desc' => 'Bài giảng vật lý 15', 'author' => 'Lê Hoài Name'),]
         );
+    }
+}
+
+class UsersTableSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        DB::table('users') -> insert ([
+        	["name" => "user1", "email" => "user1@gmail.com", "password" => Hash::make("123456")],
+        	["name" => "user2", "email" => "user2@gmail.com", "password" => Hash::make("123456")],
+        	["name" => "user3", "email" => "user3@gmail.com", "password" => Hash::make("123456")],
+        	["name" => "user4", "email" => "user4@gmail.com", "password" => Hash::make("123456")],
+        	["name" => "user5", "email" => "user5@gmail.com", "password" => Hash::make("123456")],
+        	["name" => "user6", "email" => "user6@gmail.com", "password" => Hash::make("123456")],
+        	["name" => "user7", "email" => "user7@gmail.com", "password" => Hash::make("123456")],
+        	["name" => "user8", "email" => "user8@gmail.com", "password" => Hash::make("123456")],
+        	["name" => "user9", "email" => "user9@gmail.com", "password" => Hash::make("123456")],
+        	["name" => "user10", "email" => "user10@gmail.com", "password" => Hash::make("123456")],
+        ]);
     }
 }
