@@ -98,3 +98,7 @@ Route::prefix('counts') -> group(function(){
 });
 
 
+// Route::get('user/{email}', function($email){
+// 	return 'My name is'.$email;
+// })->middleware(CheckEmail::class);
+
