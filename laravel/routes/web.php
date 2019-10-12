@@ -39,7 +39,7 @@ Route::get('scheme/change_attribute', function(){
 });
 
 Route::get('scheme/deleteUser', function(){
-	Schema::dropIfExists("User");	
+	Schema::dropIfExists("User");
 });
 
 
@@ -102,3 +102,7 @@ Route::prefix('counts') -> group(function(){
 // 	return 'My name is'.$email;
 // })->middleware(CheckEmail::class);
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

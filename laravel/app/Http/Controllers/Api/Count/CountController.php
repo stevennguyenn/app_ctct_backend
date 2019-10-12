@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\Count;
 use App\Models\Count;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Response;
 use App\Http\Resources\Count as CountReponse;
 
 class CountController extends Controller

@@ -17,25 +17,24 @@ use App\Http\Requests\User\UserRequest;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'users'], function(){
+    Route::post('login', 'Api\User\UserController@login');
+    Route::post('register', 'Api\User\UserController@register');
+
+//    Route::group(['middleware' => 'auth:api'], function(){
+//        Route::get('logout', 'Api\User\UserController@logout');
+//        Route::get('user', 'Api\User\UserController@user');
+//    });
 });
 
-//Route::get('counts', 'Api\Count\CountController@index')->name('counts.index');
 Route::post('counts', function (Request $request){
     $offset = $request->offset;
     $limit = $request->limit;
     return (new CountCollection(Count::limit($limit)->offset($offset)->get()));
 });
 
-Route::get('user/{id}', function($id) {
 
-})->name('user.id');
-
-
-Route::post('users', 'Api\User\UserController@store');
-
-Route::get('counts/{id}', 'Api\Count\CountController@show')->name('counts.show');
+Route::get('counts/{id}', 'Api\Count\CountController@show')->middleware("auth:api");
 
 //Route::post('counts', 'Api\Count\CountController@store')->name('counts.store');
 
