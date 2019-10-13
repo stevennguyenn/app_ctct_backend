@@ -51,7 +51,7 @@ class UserRequest extends FormRequest
         $error = (new ValidationException($validator))->errors();
         throw new HttpResponseException(response() -> json(
             [
-                'erorr' => $error,
+                'message' => $error,
                 'code' => 422,
             ]
         ));

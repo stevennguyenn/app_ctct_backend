@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends BaseControllerPlus
 {
@@ -49,19 +50,14 @@ class UserController extends BaseControllerPlus
         }
     }
 
-    public function  register(UserRequest $request) {
-        dd($request->messages());
-        if ($request->messages() != null){
-            return $this->sendError($request->messages(),401);
-        } else {
-            $user = new User();
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->phone = $request->phone;
-            $user->save();
-            return $this->sendResponse(null, "Successfully created user!");
-        }
+    public function register(UserRequest $request) {
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+//        $user->phone = $request->phone;
+        $user->save();
+        return $this->sendResponse(null, "Successfully created user!");
     }
 
     public function index()
