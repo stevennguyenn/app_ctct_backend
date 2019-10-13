@@ -27,8 +27,9 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|max:255|email|unique:users',
             'name' => 'required|max:255|unique:users',
+            'phone' => 'required|phone|unique:users',
+            'email' => 'required|max:255|email|unique:users',
             'password' => 'required|min:6',
         ];
     }
@@ -36,11 +37,14 @@ class UserRequest extends FormRequest
     public function messages()
     {
         return [
+            'name.required' => 'Please enter name',
+            'name.unique' => 'Name has existed',
             'email.required' => 'Please enter email',
             'email.unique' => 'Email has existed',
             'email.email' => 'Email wrong format',
-            'name.required' => 'Please enter name',
-            'name.unique' => 'Name has existed',
+            'phone.required' => 'Please enter phone',
+            'phone.unique' => 'Phone has existed',
+            'phone.phone' => 'Phone wrong format',
             'password.required' => 'Password failed',
             'password.min' => 'Password min 6'
         ];

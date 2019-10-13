@@ -34,8 +34,8 @@ class UserController extends BaseControllerPlus
             $response = $http->request("POST", "http://localhost/projects/app_ctct_backend/laravel/oauth/token", [
                 "form_params" => [
                     'grant_type' => 'password',
-                    'client_id' => '6',
-                    'client_secret' => 'FqjSAG0JFWuc99OdiYkJiKHQTPBnkNTnW1brR8ri',
+                    'client_id' => '1',
+                    'client_secret' => 'Z7tlPBv9Nu3Ksz08gYrrarWojd6H4cIH8kdxZnDy',
                     'username' => $request->json("email"),
                     'password' => $request->json("password"),
                     'scope' => '*',
