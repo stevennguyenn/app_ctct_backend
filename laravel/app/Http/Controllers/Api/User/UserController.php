@@ -7,6 +7,7 @@ use App\Http\Requests\User\UserRequest;
 use App\Models\User;
 use App\Http\Resources\User\User as UserResponse;
 use Carbon\Carbon;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use GuzzleHttp\Client;
@@ -27,26 +28,29 @@ class UserController extends BaseControllerPlus
         ]);
         $credentials = request(['email', 'password']);
         if (!Auth::attempt($credentials)){
-            dd($credentials);
-            return $this->sendError("Email or Password not correct", [],401);
+            return $this->sendError("Email hoặc mật khẩu không đúng", [],401);
         } else {
             $http = new Client();
-            $response = $http->request("POST", "http://localhost/projects/app_ctct_backend/laravel/oauth/token", [
-                "form_params" => [
-                    'grant_type' => 'password',
-                    'client_id' => '1',
-                    'client_secret' => 'Z7tlPBv9Nu3Ksz08gYrrarWojd6H4cIH8kdxZnDy',
-                    'username' => $request->json("email"),
-                    'password' => $request->json("password"),
-                    'scope' => '*',
-                ]
-            ]);
-            $user = $request->user();
-            $jsonObject = json_decode($response->getBody()->getContents());
-            $user->access_token = $jsonObject->access_token;
-            $user->refresh_token = $jsonObject->refresh_token;
-            $user->save();
-            return $this->sendResponse(new UserResponse($user), "Login Successed");
+            try {
+                $response = $http->request("POST", "http://192.168.6.95/projects/app_ctct_backend/laravel/oauth/token", [
+                    "form_params" => [
+                        'grant_type' => 'password',
+                        'client_id' => '1',
+                        'client_secret' => 'Z7tlPBv9Nu3Ksz08gYrrarWojd6H4cIH8kdxZnDy',
+                        'username' => $request->json("email"),
+                        'password' => $request->json("password"),
+                        'scope' => '*',
+                    ]
+                ]);
+                $user = $request->user();
+                $jsonObject = json_decode($response->getBody()->getContents());
+                $user->access_token = $jsonObject->access_token;
+                $user->refresh_token = $jsonObject->refresh_token;
+                $user->save();
+                return $this->sendResponse(new UserResponse($user), "Login Successed");
+            } catch (GuzzleException $e) {
+
+            }
         }
     }
 
