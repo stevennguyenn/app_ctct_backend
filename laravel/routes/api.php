@@ -36,8 +36,6 @@ Route::post('counts', function (Request $request){
 
 Route::get('counts/{id}', 'Api\Count\CountController@show')->middleware("auth:api");
 
-//Route::post('counts', 'Api\Count\CountController@store')->name('counts.store');
-
 Route::put('counts/{id}', 'Api\Count\CountController@update')->name('counts.update');
 
 Route::patch('counts/{id}', 'Api\Count\CountController@update')->name('counts.update');

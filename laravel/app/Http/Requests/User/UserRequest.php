@@ -28,7 +28,7 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255|unique:users',
-            'phone' => 'required|phone|unique:users',
+            'phone' => 'required|unique:users',
             'email' => 'required|max:255|email|unique:users',
             'password' => 'required|min:6',
         ];
@@ -43,8 +43,6 @@ class UserRequest extends FormRequest
             'email.unique' => 'Email has existed',
             'email.email' => 'Email wrong format',
             'phone.required' => 'Please enter phone',
-            'phone.unique' => 'Phone has existed',
-            'phone.phone' => 'Phone wrong format',
             'password.required' => 'Password failed',
             'password.min' => 'Password min 6'
         ];
@@ -52,7 +50,7 @@ class UserRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        $error = (new ValidationException($validator))->errors();
+        $error = array_values((new ValidationException($validator))->errors())[0];
         throw new HttpResponseException(response() -> json(
             [
                 'message' => $error,

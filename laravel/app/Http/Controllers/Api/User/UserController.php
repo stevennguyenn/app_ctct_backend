@@ -32,7 +32,7 @@ class UserController extends BaseControllerPlus
         } else {
             $http = new Client();
             try {
-                $response = $http->request("POST", "http://192.168.6.95/projects/app_ctct_backend/laravel/oauth/token", [
+                $response = $http->request("POST", "http://localhost/projects/app_ctct_backend/laravel/oauth/token", [
                     "form_params" => [
                         'grant_type' => 'password',
                         'client_id' => '1',
@@ -59,7 +59,7 @@ class UserController extends BaseControllerPlus
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-//        $user->phone = $request->phone;
+        $user->phone = $request->phone;
         $user->save();
         return $this->sendResponse(null, "Successfully created user!");
     }

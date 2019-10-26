@@ -8,6 +8,7 @@ class BaseControllerPlus extends Controller
 {
     public function sendResponse($result, $message) {
         $response = [
+            'code' => 200,
             'success' => true,
             'data' => $result,
             'message' => $message,
